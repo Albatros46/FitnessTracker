@@ -1,0 +1,20 @@
+# Backend
+FitnessTrackerServer/target/
+FitnessTrackerServer/HELP.md
+
+# Frontend
+FitnessTrackerWeb/node_modules/
+FitnessTrackerWeb/dist/
+FitnessTrackerWeb/.angular/
+
+# IDE / OS
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
+
+# Local environment
+.env
+
+# Drafts
+docs/linkedin-post.md

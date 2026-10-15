@@ -1,0 +1,25 @@
+# Starts PostgreSQL for local development.
+# On first start the scripts in ./database create the schema and load demo data.
+#   docker compose up -d
+#   docker compose down -v   # stop and wipe the data volume
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: fitness-tracker-db
+    environment:
+      POSTGRES_DB: Fitness_Tracker
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./database:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d Fitness_Tracker"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  pgdata:

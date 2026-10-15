@@ -1,0 +1,29 @@
+<nz-layout class="layout">
+  <nz-sider nzWidth="220px">
+    <div class="logo">
+      <img src="assets/logo.jpg" alt="logo" class="avatar" />
+    </div>
+    <div class="user-info">
+      <strong>Servet</strong>
+    </div>
+    <ul nz-menu nzTheme="dark" nzMode="inline">
+      <li nz-menu-item nzMatchRouter nzMatchRouterExact>
+        <a routerLink="/"><span nz-icon nzType="dashboard"></span><span>Dashboard</span></a>
+      </li>
+      <li nz-menu-item nzMatchRouter>
+        <a routerLink="/activity"><span nz-icon nzType="thunderbolt"></span><span>Activities</span></a>
+      </li>
+      <li nz-menu-item nzMatchRouter>
+        <a routerLink="/workout"><span nz-icon nzType="fire"></span><span>Workouts</span></a>
+      </li>
+      <li nz-menu-item nzMatchRouter>
+        <a routerLink="/goal"><span nz-icon nzType="flag"></span><span>Goals</span></a>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-content class="content">
+      <router-outlet></router-outlet>
+    </nz-content>
+  </nz-layout>
+</nz-layout>

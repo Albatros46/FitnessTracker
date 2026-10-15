@@ -1,0 +1,35 @@
+<h2 class="page-title">Dashboard</h2>
+<nz-spin [nzSpinning]="loading">
+  @if (stats) {
+    <div nz-row [nzGutter]="[24, 24]">
+      <div nz-col [nzXs]="24" [nzSm]="12" [nzLg]="6">
+        <nz-card><nz-statistic nzTitle="Total steps" [nzValue]="(stats.totalSteps | number)!"></nz-statistic></nz-card>
+      </div>
+      <div nz-col [nzXs]="24" [nzSm]="12" [nzLg]="6">
+        <nz-card><nz-statistic nzTitle="Distance (km)" [nzValue]="(stats.totalDistance | number: '1.0-2')!"></nz-statistic></nz-card>
+      </div>
+      <div nz-col [nzXs]="24" [nzSm]="12" [nzLg]="6">
+        <nz-card>
+          <nz-statistic nzTitle="Calories burned" [nzValue]="(stats.totalActivityCalories + stats.totalWorkoutCalories | number)!"></nz-statistic>
+        </nz-card>
+      </div>
+      <div nz-col [nzXs]="24" [nzSm]="12" [nzLg]="6">
+        <nz-card>
+          <nz-statistic nzTitle="Workout time" [nzValue]="(stats.totalWorkoutDuration | number)!" nzSuffix="min"></nz-statistic>
+        </nz-card>
+      </div>
+      <div nz-col [nzXs]="24" [nzLg]="12">
+        <nz-card nzTitle="Goals">
+          <nz-progress nzType="circle" [nzPercent]="goalPercent"></nz-progress>
+          <p>{{ stats.achievedGoals }} of {{ totalGoals }} goals achieved</p>
+        </nz-card>
+      </div>
+      <div nz-col [nzXs]="24" [nzLg]="12">
+        <nz-card nzTitle="Calories by source">
+          <nz-statistic nzTitle="Activities" [nzValue]="(stats.totalActivityCalories | number)!" nzSuffix="kcal"></nz-statistic>
+          <nz-statistic nzTitle="Workouts" [nzValue]="(stats.totalWorkoutCalories | number)!" nzSuffix="kcal"></nz-statistic>
+        </nz-card>
+      </div>
+    </div>
+  }
+</nz-spin>

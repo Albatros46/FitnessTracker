@@ -1,0 +1,58 @@
+<h2 class="page-title">Activities</h2>
+<div nz-row [nzGutter]="24">
+  <div nz-col [nzXs]="24" [nzLg]="8">
+    <nz-card nzTitle="Log activity">
+      <form nz-form nzLayout="vertical" nzNoColon [formGroup]="form" (ngSubmit)="submit()">
+        <nz-form-item>
+          <nz-form-label nzRequired>Date</nz-form-label>
+          <nz-form-control nzErrorTip="Date is required">
+            <nz-date-picker formControlName="date" class="full-width"></nz-date-picker>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzRequired>Steps</nz-form-label>
+          <nz-form-control nzErrorTip="Steps must be 0 or more">
+            <nz-input-number formControlName="steps" [nzMin]="0" class="full-width"></nz-input-number>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzRequired>Distance (km)</nz-form-label>
+          <nz-form-control nzErrorTip="Distance must be 0 or more">
+            <nz-input-number formControlName="distance" [nzMin]="0" [nzStep]="0.1" class="full-width"></nz-input-number>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzRequired>Calories burned</nz-form-label>
+          <nz-form-control nzErrorTip="Calories must be 0 or more">
+            <nz-input-number formControlName="caloriesBurned" [nzMin]="0" class="full-width"></nz-input-number>
+          </nz-form-control>
+        </nz-form-item>
+        <button nz-button nzType="primary" nzBlock [nzLoading]="saving">Save</button>
+      </form>
+    </nz-card>
+  </div>
+  <div nz-col [nzXs]="24" [nzLg]="16">
+    <nz-card nzTitle="History">
+      <nz-table #table [nzData]="activities" [nzLoading]="loading" [nzPageSize]="10">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Steps</th>
+            <th>Distance (km)</th>
+            <th>Calories</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (activity of table.data; track activity.id) {
+            <tr>
+              <td>{{ activity.date | date: 'mediumDate' }}</td>
+              <td>{{ activity.steps | number }}</td>
+              <td>{{ activity.distance | number: '1.0-2' }}</td>
+              <td>{{ activity.caloriesBurned | number }}</td>
+            </tr>
+          }
+        </tbody>
+      </nz-table>
+    </nz-card>
+  </div>
+</div>

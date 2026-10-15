@@ -1,0 +1,59 @@
+<h2 class="page-title">Goals</h2>
+<div nz-row [nzGutter]="24">
+  <div nz-col [nzXs]="24" [nzLg]="8">
+    <nz-card nzTitle="New goal">
+      <form nz-form nzLayout="vertical" nzNoColon [formGroup]="form" (ngSubmit)="submit()">
+        <nz-form-item>
+          <nz-form-label nzRequired>Description</nz-form-label>
+          <nz-form-control nzErrorTip="Description is required">
+            <textarea nz-input formControlName="description" rows="3" placeholder="e.g. Run 50 km this month"></textarea>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzRequired>Start / end date</nz-form-label>
+          <nz-form-control nzErrorTip="Choose a date range">
+            <nz-range-picker formControlName="range" class="full-width"></nz-range-picker>
+          </nz-form-control>
+        </nz-form-item>
+        <button nz-button nzType="primary" nzBlock [nzLoading]="saving">Save</button>
+      </form>
+    </nz-card>
+  </div>
+  <div nz-col [nzXs]="24" [nzLg]="16">
+    <nz-card nzTitle="My goals">
+      <nz-table #table [nzData]="goals" [nzLoading]="loading" [nzPageSize]="10">
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th>Start</th>
+            <th>End</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (goal of table.data; track goal.id) {
+            <tr>
+              <td>{{ goal.description }}</td>
+              <td>{{ goal.startDate | date: 'mediumDate' }}</td>
+              <td>{{ goal.endDate | date: 'mediumDate' }}</td>
+              <td>
+                @if (goal.achieved) {
+                  <nz-tag nzColor="success">Achieved</nz-tag>
+                } @else {
+                  <nz-tag nzColor="processing">In progress</nz-tag>
+                }
+              </td>
+              <td>
+                <button nz-button nzSize="small" (click)="toggleAchieved(goal)">
+                  <span nz-icon [nzType]="goal.achieved ? 'undo' : 'check'"></span>
+                  {{ goal.achieved ? 'Reopen' : 'Mark achieved' }}
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </nz-table>
+    </nz-card>
+  </div>
+</div>

@@ -1,0 +1,62 @@
+<h2 class="page-title">Workouts</h2>
+<div nz-row [nzGutter]="24">
+  <div nz-col [nzXs]="24" [nzLg]="8">
+    <nz-card nzTitle="Log workout">
+      <form nz-form nzLayout="vertical" nzNoColon [formGroup]="form" (ngSubmit)="submit()">
+        <nz-form-item>
+          <nz-form-label nzRequired>Type</nz-form-label>
+          <nz-form-control nzErrorTip="Choose a workout type">
+            <nz-select formControlName="type" nzPlaceHolder="Select type">
+              @for (type of workoutTypes; track type) {
+                <nz-option [nzValue]="type" [nzLabel]="type"></nz-option>
+              }
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzRequired>Date</nz-form-label>
+          <nz-form-control nzErrorTip="Date is required">
+            <nz-date-picker formControlName="date" class="full-width"></nz-date-picker>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzRequired>Duration (min)</nz-form-label>
+          <nz-form-control nzErrorTip="Duration must be at least 1 minute">
+            <nz-input-number formControlName="duration" [nzMin]="1" class="full-width"></nz-input-number>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzRequired>Calories burned</nz-form-label>
+          <nz-form-control nzErrorTip="Calories must be 0 or more">
+            <nz-input-number formControlName="caloriesBurned" [nzMin]="0" class="full-width"></nz-input-number>
+          </nz-form-control>
+        </nz-form-item>
+        <button nz-button nzType="primary" nzBlock [nzLoading]="saving">Save</button>
+      </form>
+    </nz-card>
+  </div>
+  <div nz-col [nzXs]="24" [nzLg]="16">
+    <nz-card nzTitle="History">
+      <nz-table #table [nzData]="workouts" [nzLoading]="loading" [nzPageSize]="10">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Duration (min)</th>
+            <th>Calories</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (workout of table.data; track workout.id) {
+            <tr>
+              <td>{{ workout.date | date: 'mediumDate' }}</td>
+              <td>{{ workout.type }}</td>
+              <td>{{ workout.duration | number }}</td>
+              <td>{{ workout.caloriesBurned | number }}</td>
+            </tr>
+          }
+        </tbody>
+      </nz-table>
+    </nz-card>
+  </div>
+</div>
